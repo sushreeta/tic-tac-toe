@@ -7,6 +7,7 @@ public class BotPlayer extends Player{
     public BotPlayer(String name, Character symbol, int id, PlayerType playerType, Level level){
         super(name, symbol, id, playerType);
         this.level = level;
+        this.botPlayingStrategy = BotPlayingStrategyFactory.getBotPlayingStrategy(level);
     }
 
     @Override
