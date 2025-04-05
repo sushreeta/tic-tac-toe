@@ -78,6 +78,7 @@ public class GameController {
         Move purposedMove = currentPlayer.makeMove();
         //2. placing the move on the board.
         boardController.applyMove(purposedMove, game.getBoard();
+        game.getMoves().add(purposedMove);
 
         //Check winning strategies and alter the state if changed
         if(checkWin(game.getWinningStrategies(), game.getBoard(), proposedMove)){
@@ -108,4 +109,35 @@ public class GameController {
         }
         return false;
     }
+
+    private void checkUndo(Game game){
+        System.out.println("Would you like to undo the last move? (y/n)");
+        Scanner sc = new Scanner(System.in);
+        String inputUndo = sc.next();
+
+        if(inputUndo.equals("y")){
+            //remove the move
+            Move move = game.getMoves().remove(game.getMoves().size() - 1);
+
+            //Update player
+            int n = game.getPlayers().size();
+            game.setNextPlayerIndex(((game.getNextPlayerIndex() -1) + n) % n);
+
+            //Erase the cell from board
+            int row = move.getCells().getRow();
+            int col = move.getCells().getCol();
+            Cell cell = game.getBoard().getCells().get(row).get(col);
+            cell.setCellState(CellState.FREE);
+            cell.setPlayer(null);
+            // updating mappings row and col
+            Map<Player,Integer> rowMapping = game.getBoard().getRowsMapping().get(row);
+            rowMapping.put(move.getCell().getPlayer(), rowMapping.get(move.getCell().getlayer()) -1 );
+            Map<Player,Integer> colMapping = game.getBoard().getRowsMapping().get(col);
+            colMapping.put(move.getCell().getPlayer(), colMapping.get(move.getCell().getlayer()) -1 );
+
+
+
+        }
+    }
+
 }
