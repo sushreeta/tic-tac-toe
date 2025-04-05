@@ -24,11 +24,13 @@ public class BoardController {
         cell.setCellState(CellState.OCCUPIED);
         cell.setplayer(player);
 
-        int countRows = board.getRowsMapping().get(col).getOrDefault(player,0) + 1;
+        int countRows = board.getRowsMapping().get(row).getOrDefault(player,0) + 1;
         board.getRowsMapping().get(row).put(player, countRows);
 
         int countCols=board.getColsMapping().get(col).getOrDefault(player,0) + 1;
         board.getColsMapping().get(col).put(player,countCols);
+
+
 
     }
 

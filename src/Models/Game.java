@@ -51,7 +51,7 @@ public class Game {
 
         private Builder(){
             this.players = new ArrayList<>();
-            this.winningStrategies = List.of(new RowWinningStrategy());
+            this.winningStrategies = List.of(new RowWinningStrategies(), new ColWinningStrategies());
             this.dimension = 3;
 
             public void setPlayers(List<Player> players){

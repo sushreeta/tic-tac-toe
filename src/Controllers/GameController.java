@@ -26,7 +26,27 @@ public class GameController {
             System.out.println("Is the player a bot? (Y/N)");
             Character choice = sc.next().charAt(0);
             PlayerType playerType = choice=="y"? PlayerType.BOT : PlayerType.HUMAN;
-            playerList.add(new Player(name, symbol, i, playerType));
+            if(playerType.equals(PlayerType.BOT)){
+                //Add a bot player based on the level input
+                System.out.println("Please enter the level of the bot: ");
+                int level = sc.nextInt();
+                Level botLevel;
+                switch(level){
+                    case 1: {
+                        botLevel = Level.EASY;
+                        break;
+                    }
+                    case 2: {
+                        botLevel = Level.MEDIUM;
+                        break;
+                    }
+                    default: botLevel = Level.HARD;
+                }
+                playerList.add(new BotPlayer(name, symbol, i, playerType, botLevel));
+            } else {
+                // Add a human player
+                playerList.add(new Player(name, symbol, i, playerType));
+            }
         }
 
         return Game.getBuilder().setDimension(N).setPlayers(playerList).build();

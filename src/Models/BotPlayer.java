@@ -12,7 +12,9 @@ public class BotPlayer extends Player{
     @Override
     public Move makemove(){
         //return a move based on bot strategy.
-        return new Move();
+        Move suggestedMove = botPlayingStrategy.suggestMove(board);
+        suggestedMove.getCell().setPlayer(this);
+        return suggestedMove;
     }
 
 }
